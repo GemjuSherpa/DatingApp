@@ -10,5 +10,7 @@ namespace DatingApp.API.Data
 
     //Properties: Models
     public DbSet<Value> Values { get; set; }
+
+    public DbSet<User> Users { get; set; }
   }
 }
