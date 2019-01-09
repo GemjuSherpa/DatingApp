@@ -47,6 +47,10 @@ namespace DatingApp.API
       //CORS
       services.AddCors();
 
+      //Cloudinary Settings
+      services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+      //Auto mappers
       services.AddAutoMapper();
 
       //Seed data
@@ -94,10 +98,8 @@ namespace DatingApp.API
             }
           });
         });
-
         app.UseHsts();
       }
-
       app.UseHttpsRedirection();
       // seeder.SeedUsers();
       app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
