@@ -25,6 +25,11 @@ namespace DatingApp.API.Controllers
     }
 
     //User Registrations
+    /* 
+      @route    POST api/[controller]/register
+      @desc     Registers user
+      @access   Public
+    */
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
     {
@@ -45,6 +50,11 @@ namespace DatingApp.API.Controllers
 
 
     //user Login
+    /* 
+      @route    POST api/[controller]/login
+      @desc     User login
+      @access   Public
+    */
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
     {

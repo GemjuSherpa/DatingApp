@@ -23,6 +23,11 @@ namespace DatingApp.API.Controllers
       _repo = repo;
     }
 
+    /* 
+      @route    GET api/[controller]
+      @desc     Get all the users
+      @access   Private
+    */
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
@@ -32,6 +37,11 @@ namespace DatingApp.API.Controllers
       return Ok(usersToReturn);
     }
 
+    /* 
+      @route    GET api/[controller]/id
+      @desc     Get single user details
+      @access   Private
+    */
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser(int id)
     {
@@ -42,6 +52,11 @@ namespace DatingApp.API.Controllers
       return Ok(userToReturn);
     }
 
+    /* 
+      @route    PUT api/[controller]/id
+      @desc     Edits User details
+      @access   Private
+    */
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
     {
