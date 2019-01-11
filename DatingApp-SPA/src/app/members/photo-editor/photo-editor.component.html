@@ -43,11 +43,7 @@
     Single <input type="file" ng2FileSelect [uploader]="uploader" />
   </div>
 
-  <div
-    class="col-md-9"
-    style="margin-bottom: 40px"
-    *ngIf="uploader?.queue?.length"
-  >
+  <div class="col-md-9" style="margin-bottom: 40px">
     <h3>Upload queue</h3>
     <p>Queue length: {{ uploader?.queue?.length }}</p>
 
