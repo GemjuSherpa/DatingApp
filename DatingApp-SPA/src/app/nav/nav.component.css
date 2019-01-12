@@ -4,3 +4,9 @@
 .dropdown-item {
   cursor: pointer;
 }
+img {
+  max-height: 40px;
+  border: 2px solid white;
+  border-radius: 20px;
+  display: inline;
+}

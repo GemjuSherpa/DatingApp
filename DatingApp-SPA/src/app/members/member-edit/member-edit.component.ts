@@ -14,6 +14,7 @@ import { UserService } from "src/app/_services/user.service";
 export class MemberEditComponent implements OnInit {
   @ViewChild("editForm") editForm: NgForm;
   user: User;
+  photoUrl: string;
 
   // prevent browser to be closed if there is unsave changes
   @HostListener("window:beforeunload", ["$event"])
@@ -34,6 +35,9 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.user = data["user"];
     });
+    this.authService.currentPhotoUrl.subscribe(
+      photoUrl => (this.photoUrl = photoUrl)
+    );
   }
 
   updateUser() {
