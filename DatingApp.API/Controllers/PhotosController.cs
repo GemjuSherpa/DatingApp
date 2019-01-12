@@ -48,7 +48,6 @@ namespace DatingApp.API.Controllers
         @access   Private
     */
 
-    //TODO:: 
     [HttpGet("{id}", Name = "GetPhoto")]
     public async Task<IActionResult> GetPhoto(int id)
     {
@@ -147,6 +146,7 @@ namespace DatingApp.API.Controllers
         return Unauthorized();
       }
 
+      //get the photo and check if it is the main photo
       var photoFromRepo = await _repo.GetPhoto(id);
       if (photoFromRepo.IsMain)
       {
@@ -167,6 +167,63 @@ namespace DatingApp.API.Controllers
 
       //if fails
       return BadRequest("could not set main photo");
+    }
+
+
+    //delete photos
+    /* 
+        @route    DELETE api/users/{userId}/photos/{id}
+        @desc     Delete photos
+        @access   Private
+    */
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePhoto(int userId, int id)
+    {
+      //Validate Authenticated userid
+      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+      {
+        return Unauthorized();
+      }
+      //get the user details
+      var user = await _repo.GetUser(userId);
+
+      //validate photo id
+      if (!user.Photos.Any(p => p.Id == id))
+      {
+        return Unauthorized();
+      }
+
+      //get the photo and check if it is the main photo
+      var photoFromRepo = await _repo.GetPhoto(id);
+      if (photoFromRepo.IsMain)
+      {
+        return BadRequest("You can not delete your main photo");
+      }
+
+      //delete photo
+      if (photoFromRepo.PublicId != null)
+      {
+        var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+        var result = _cloudinary.Destroy(deleteParams);
+
+        if (result.Result == "ok")
+        {
+          _repo.Delete(photoFromRepo);
+        }
+      }
+      else
+      {
+        _repo.Delete(photoFromRepo);
+      }
+
+      //save changes
+      if (await _repo.SaveAll())
+      {
+        return Ok();
+      }
+
+      //otherwise unsuccess.
+      return BadRequest("Could not delete the photo");
     }
   }
 }
