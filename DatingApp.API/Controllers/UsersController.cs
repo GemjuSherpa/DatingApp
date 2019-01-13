@@ -42,7 +42,7 @@ namespace DatingApp.API.Controllers
       @desc     Get single user details
       @access   Private
     */
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetUser")]
     public async Task<IActionResult> GetUser(int id)
     {
       var user = await _repo.GetUser(id);
