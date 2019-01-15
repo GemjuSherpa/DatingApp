@@ -8,7 +8,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   BsDropdownModule,
   TabsModule,
-  BsDatepickerModule
+  BsDatepickerModule,
+  PaginationModule
 } from "ngx-bootstrap";
 import { NgxGalleryModule } from "ngx-gallery";
 import { TimeAgoPipe } from "time-ago-pipe";
@@ -62,6 +63,7 @@ export function tokenGetter() {
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
     JwtModule.forRoot({
