@@ -1,3 +1,4 @@
+import { ListsResolver } from "./_resolvers/lists.resolver";
 import { MemberListResolver } from "./_resolvers/member-list-resolver";
 import { MemberDetailComponent } from "./members/member-detail/member-detail.component";
 import { HomeComponent } from "./home/home.component";
@@ -36,7 +37,11 @@ const routes: Routes = [
         canDeactivate: [PreventUnsavedChanges]
       },
       { path: "messages", component: MessagesComponent },
-      { path: "lists", component: ListsComponent }
+      {
+        path: "lists",
+        component: ListsComponent,
+        resolve: { users: ListsResolver }
+      }
     ]
   },
   { path: "**", redirectTo: "", pathMatch: "full" }
