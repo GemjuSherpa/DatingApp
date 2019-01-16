@@ -6,6 +6,7 @@ using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +41,7 @@ namespace DatingApp.API.Controllers
 
       if (string.IsNullOrEmpty(userParams.Gender))
       {
-        userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
+        userParams.Gender = userFromRepo.gender == "male" ? "female" : "male";
       }
 
       var users = await _repo.GetUsers(userParams);
@@ -97,5 +98,46 @@ namespace DatingApp.API.Controllers
 
 
     }
+    /* 
+      @route    POST api/[controller]/id/like/recipientId
+      @desc     Like User 
+      @access   Private
+    */
+    [HttpPost("{id}/like/{recipientId}")]
+    public async Task<IActionResult> LikeUser(int id, int recipientId)
+    {
+      // validate the user id.
+      if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+      {
+        return Unauthorized();
+      }
+      var like = await _repo.GetLike(id, recipientId);
+      if (like != null)
+      {
+        return BadRequest("You have already liked this user");
+      }
+
+      if (await _repo.GetUser(recipientId) == null)
+      {
+        return NotFound();
+      }
+
+      like = new Like
+      {
+        LikerId = id,
+        LikeeId = recipientId
+      };
+
+      _repo.Add<Like>(like);
+
+      if (await _repo.SaveAll())
+      {
+        return Ok();
+      }
+
+      return BadRequest("Failed to like this user.");
+    }
+
+
   }
 }
