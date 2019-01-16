@@ -9,7 +9,8 @@ import {
   BsDropdownModule,
   TabsModule,
   BsDatepickerModule,
-  PaginationModule
+  PaginationModule,
+  ButtonsModule
 } from "ngx-bootstrap";
 import { NgxGalleryModule } from "ngx-gallery";
 import { TimeAgoPipe } from "time-ago-pipe";
@@ -64,6 +65,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
     JwtModule.forRoot({

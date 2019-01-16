@@ -54,6 +54,30 @@
     >
       Reset Filter
     </button>
+    <div class="col">
+      <div class="btn-group float-right">
+        <button
+          type="button"
+          name="orderBy"
+          class="btn btn-primary"
+          [(ngModel)]="userParams.orderBy"
+          btnRadio="lastActive"
+          (click)="loadUsers()"
+        >
+          Last Active
+        </button>
+        <button
+          type="button"
+          name="orderBy"
+          class="btn btn-primary"
+          [(ngModel)]="userParams.orderBy"
+          btnRadio="created"
+          (click)="loadUsers()"
+        >
+          Newest Members
+        </button>
+      </div>
+    </div>
   </form>
   <br />
 
