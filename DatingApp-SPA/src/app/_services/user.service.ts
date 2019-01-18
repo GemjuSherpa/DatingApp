@@ -1,3 +1,4 @@
+import { Message } from "./../_models/Message";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
@@ -88,5 +89,48 @@ export class UserService {
       this.baseurl + "users/" + id + "/like/" + recipientId,
       {}
     );
+  }
+
+  getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<
+      Message[]
+    >();
+    let params = new HttpParams();
+
+    params = params.append("MessageContainer", messageContainer);
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append("pageNumber", page);
+      params = params.append("pageSize", itemsPerPage);
+    }
+
+    return this.http
+      .get<Message[]>(this.baseurl + "users/" + id + "/messages", {
+        observe: "response",
+        params
+      })
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get("Pagination") != null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get("Pagination")
+            );
+          }
+          return paginatedResult;
+        })
+      );
+  }
+
+  //get messages thread conversation
+  getMessageThread(id: number, recipientId: number) {
+    return this.http.get<Message[]>(
+      this.baseurl + "users/" + id + "/messages/thread/" + recipientId
+    );
+  }
+
+  //Send message
+  sendMessage(id: number, message: Message) {
+    return this.http.post(this.baseurl + "users/" + id + "/messages", message);
   }
 }

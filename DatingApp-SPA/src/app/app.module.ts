@@ -1,3 +1,4 @@
+import { MessagesResolver } from "./_resolvers/messages.resolver";
 import { MemberDetailResolver } from "./_resolvers/member-detail-resolver";
 import { MemberDetailComponent } from "./members/member-detail/member-detail.component";
 import { AuthService } from "./_services/auth.service";
@@ -36,6 +37,7 @@ import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
 import { PhotoEditorComponent } from "./members/photo-editor/photo-editor.component";
 import { FileUploadModule } from "ng2-file-upload";
 import { ListsResolver } from "./_resolvers/lists.resolver";
+import { MemberMessagesComponent } from "./members/member-messages/member-messages.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -53,6 +55,7 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    MemberMessagesComponent,
     PhotoEditorComponent,
     TimeAgoPipe
   ],
@@ -87,7 +90,8 @@ export function tokenGetter() {
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
-    ListsResolver
+    ListsResolver,
+    MessagesResolver
   ],
   bootstrap: [AppComponent]
 })

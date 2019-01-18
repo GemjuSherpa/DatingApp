@@ -1,3 +1,4 @@
+import { MessagesResolver } from "./_resolvers/messages.resolver";
 import { ListsResolver } from "./_resolvers/lists.resolver";
 import { MemberListResolver } from "./_resolvers/member-list-resolver";
 import { MemberDetailComponent } from "./members/member-detail/member-detail.component";
@@ -36,7 +37,11 @@ const routes: Routes = [
         resolve: { user: MemberEditResolver },
         canDeactivate: [PreventUnsavedChanges]
       },
-      { path: "messages", component: MessagesComponent },
+      {
+        path: "messages",
+        component: MessagesComponent,
+        resolve: { messages: MessagesResolver }
+      },
       {
         path: "lists",
         component: ListsComponent,
