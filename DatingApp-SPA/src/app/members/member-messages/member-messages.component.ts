@@ -36,7 +36,9 @@ export class MemberMessagesComponent implements OnInit {
               messages[i].isRead === false &&
               messages[i].recipientId === currentUserId
             ) {
-              this.userService.markAsRead(currentUserId, this.messages[i].id);
+              console.log(messages);
+              console.log(messages[i].messageId);
+              this.userService.markAsRead(currentUserId, messages[i].messageId);
             }
           }
         })
