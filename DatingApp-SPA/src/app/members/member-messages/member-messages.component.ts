@@ -59,7 +59,7 @@ export class MemberMessagesComponent implements OnInit {
       .sendMessage(this.authService.decodedToken.nameid, this.newMessage)
       .subscribe(
         (message: Message) => {
-          this.messages.unshift(message);
+          this.messages.push(message);
           this.newMessage.content = "";
         },
         error => {
